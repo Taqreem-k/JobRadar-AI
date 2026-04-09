@@ -1,0 +1,36 @@
+# Python-generated files
+__pycache__/
+*.py[oc]
+build/
+dist/
+wheels/
+*.egg-info
+
+# Virtual environments
+.venv
+
+# Local Environment Secrets (CRITICAL)
+.env
+.env.*
+!.env.example
+
+# Python & uv Virtual Environments
+*$py.class
+.venv/
+venv/
+env/
+.uv/
+
+# Database Local Storage (If using Docker volumes locally)
+postgres_data/
+*.sqlite3
+
+# Playwright Debugging (If you take screenshots during scraping)
+test-results/
+*.png
+
+# IDEs & OS Files
+.vscode/
+.idea/
+.DS_Store
+*.log
