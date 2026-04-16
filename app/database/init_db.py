@@ -1,9 +1,11 @@
 from app.database.connection import engine, Base
 
-def create_tables():
+from app.database.models import Base, RawJobPosting, JobDigest
+
+def init():
     print("Creating database tables...")
     Base.metadata.create_all(bind=engine)
-    print("Tables created successfully!")
+    print("Database tables created successfully!")
 
 if __name__ == "__main__":
-    create_tables()
+    init()

@@ -6,9 +6,9 @@ from app.services.email_service import EmailService
 
 def main():
     print("🚀 Starting Phase 1: Ingestion")
-    LinkedInScraper(keyword="Generative AI", location="India").run()
+    # LinkedInScraper(keyword="Generative AI", location="India").run()
     
-    GenericJobScraper(api_url="https://api.example.com/api").run()
+    GenericJobScraper(api_url="https://remoteok.com/api").run()
 
     print("🧠 Starting Phase 3: Digestion (Phase 2 is the DB, always running implicitly)")
     JobDigestAgent().run()

@@ -3,7 +3,7 @@ from app.database.connection import Base
 from datetime import datetime, timezone
 
 class RawJobPosting(Base):
-    __tablename__ = "Raw-Job-Posting"
+    __tablename__ = "raw_job_posting"
 
     id = Column(Integer, primary_key=True)
     job_url = Column(String, unique=True, index= True)
@@ -15,10 +15,10 @@ class RawJobPosting(Base):
     is_processed = Column(Boolean, default=False)
 
 class JobDigest(Base):
-    __tablename__ ="Job-Digest"
+    __tablename__ ="job_digest"
 
     id = Column(Integer, primary_key=True)
-    raw_job_id = Column(Integer, ForeignKey=RawJobPosting.id)
+    raw_job_id = Column(Integer, ForeignKey(RawJobPosting.id))
     estimated_salary = Column(String)
     tech_stack = Column(String)
     years_of_experience = Column(String)

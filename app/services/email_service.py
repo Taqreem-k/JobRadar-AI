@@ -4,13 +4,14 @@ from email.mime.multipart import MIMEMultipart
 from sqlalchemy.orm import Session
 from app.database.connection import get_db
 from app.database.models import JobDigest, RawJobPosting
-from app.config import SENDER_EMAIL, EMAIL_APP_PASSWORD, RECEIVER_EMAIL
+from app.config import settings
+
 
 class EmailService:
     def __init__(self):
-        self.sender_email = SENDER_EMAIL
-        self.password = EMAIL_APP_PASSWORD
-        self.receiver_email = RECEIVER_EMAIL
+        self.sender_email = settings.SENDER_EMAIL
+        self.password = settings.EMAIL_APP_PASSWORD
+        self.receiver_email = settings.RECEIVER_EMAIL
 
     def fetch_top_jobs(self, session: Session, limit: int = 5):
         return session.query(JobDigest, RawJobPosting)\

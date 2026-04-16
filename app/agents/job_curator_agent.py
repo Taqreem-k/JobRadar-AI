@@ -1,5 +1,6 @@
 import os
 import json
+import time
 from pydantic import BaseModel, Field
 from sqlalchemy.orm import Session
 from google.genai import types
@@ -35,7 +36,7 @@ class JobCuratorAgent(BaseAgent):
 
         response = self.client.models.generate_content(
             model = self.model_name,
-            content = prompt,
+            contents = prompt,
             config=types.GenerateContentConfig(
                 system_instruction=self.system_instruction,
                 response_mime_type = "application/json",
@@ -65,6 +66,7 @@ class JobCuratorAgent(BaseAgent):
 
                     digest.match_score = extracted_data.get("match_score")
                     print(f"Scored {raw_job.job_title} at {raw_job.company_name}: {digest.match_score}/10")
+                    time.sleep(4)
 
                 except Exception as e:
                     print(f"Error scoring job ID {digest.id}: {e}")

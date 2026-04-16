@@ -6,37 +6,34 @@ class GenericJobScraper(BaseScraper):
         super().__init__()
         self.api_url = api_url
 
-    def fetch_data(self) -> list[dict]:
+    def fetch_data(self):
         response = requests.get(self.api_url)
         if response.status_code == 200:
-            return response.json()
-        else:
-            print(f"Failed to fetch data from API. Status: {response.status_code}")
-            return []
+            return response.json()[1:] 
+        return []
 
     def run(self):
-        raw_list = self.fetch_data()
+        raw_jobs = self.fetch_data()
+        print(f"📡 Found {len(raw_jobs)} jobs from API. Saving to database...")
         
-        for item in raw_list:
+        for job in raw_jobs[:10]: 
             try:
-                job_url = item.get("url") or item.get("job_url")
-                job_title = item.get("title") or item.get("job_title")
-                company_name = item.get("company_name") or item.get("company")
-                raw_description = item.get("description") or ""
-
-                if not job_url or not job_title:
-                    continue
-
-                clean_desc = self.clean_html(raw_description)
-
+                job_url = job.get("url")
+                title = job.get("position")
+                company = job.get("company")
+                location = job.get("location", "Remote")
+                raw_html = job.get("description", "")
+                
+                clean_desc = self.clean_html(raw_html)
+                
                 job_data = {
                     "job_url": job_url,
-                    "job_title": job_title,
-                    "company_name": company_name,
-                    "description": clean_desc
+                    "job_title": title,
+                    "company_name": company,
+                    "location": location,
+                    "raw_text": clean_desc
                 }
-
-                self.save_to_db(job_data)
                 
+                self.save_to_db(job_data)
             except Exception as e:
-                print(f"Error processing API item: {e}")
+                print(f"Skipped a job due to error: {e}")

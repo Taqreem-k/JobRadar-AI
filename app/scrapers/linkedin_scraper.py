@@ -32,6 +32,7 @@ class LinkedInScraper(BaseScraper):
 
             for card in job_cards:
                 try:
+                    # Extract basic info from the card
                     title_tag = card.find('h3', class_='base-search-card__title')
                     company_tag = card.find('h4', class_='base-search-card__subtitle')
                     link_tag = card.find('a', class_='base-card__full-link')
@@ -61,7 +62,7 @@ class LinkedInScraper(BaseScraper):
                         "job_title": job_title,
                         "company_name": company_name,
                         "location": location,
-                        "description": clean_desc
+                        "raw_text": clean_desc
                     }
 
                     self.save_to_db(job_data)

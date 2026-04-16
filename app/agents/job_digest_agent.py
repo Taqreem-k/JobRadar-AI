@@ -1,4 +1,5 @@
 import json
+import time
 from pydantic import BaseModel, Field
 from sqlalchemy.orm import Session
 from google.genai import types
@@ -41,7 +42,7 @@ class JobDigestAgent(BaseAgent):
             for job in jobs:
                 print(f"Digesting job: {job.job_title} at {job.company_name}")
                 try:
-                    extracted_data = self.extract_data(job.description)
+                    extracted_data = self.extract_data(job.raw_text)
 
                     new_digest = JobDigest(
                         raw_job_id= job.id,
@@ -53,6 +54,7 @@ class JobDigestAgent(BaseAgent):
                     session.add(new_digest)
 
                     job.is_processed = True
+                    time.sleep(4)
                 
                 except Exception as e:
                     print(f"Error extracting data for job ID {job.id}: {e}")
