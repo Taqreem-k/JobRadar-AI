@@ -6,7 +6,7 @@ from app.services.email_service import EmailService
 
 def main():
     print("🚀 Starting Phase 1: Ingestion")
-    # LinkedInScraper(keyword="Generative AI", location="India").run()
+    LinkedInScraper(keyword="Generative AI", location="India").run()
     
     GenericJobScraper(api_url="https://remoteok.com/api").run()
 
