@@ -28,6 +28,7 @@ postgres_data/
 # Playwright Debugging (If you take screenshots during scraping)
 test-results/
 *.png
+!asset/*.png
 
 # IDEs & OS Files
 .vscode/

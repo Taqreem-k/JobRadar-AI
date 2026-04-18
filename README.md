@@ -20,7 +20,7 @@ The pipeline executes daily in five distinct phases:
 4. **Curation (AI Scoring):** The `JobCuratorAgent` loads a local `candidate_profile.md` (acting as a strict career strategist) and assigns a `match_score` (1-10) to each digested job based on technical and cultural fit.
 5. **Delivery (Orchestration):** The pipeline queries the top 5 highest-scored, un-emailed jobs, compiles them into an HTML template, and fires them off via Gmail SMTP.
 
-![Architecture Flow](assets/architecture_diag.png) 
+![Architecture Flow](asset/architecture.png) 
 
 ## 🛠️ Tech Stack
 
